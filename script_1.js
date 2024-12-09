@@ -24,6 +24,15 @@ let mode_array = [
   "normal",
 ];
 
+let apple_mode_array = [
+  "portal",
+  "normal",
+  "normal",
+  "normal",
+  "normal",
+  "normal",
+]
+
 let ex_p = [];
 
 let direc = "up";
@@ -36,6 +45,7 @@ let tik = 100;
 let mode = "normal";
 let clicked = false;
 let interval;
+let apple_mode = apple_mode_array.sample();
 
 let p_x_pos = [];
 let p_y_pos = [];
@@ -43,8 +53,10 @@ let a_x;
 let a_y;
 let p_x;
 let p_y;
-let o_x;
-let o_y;
+let portal_x1 = squares.sample();
+let portal_x2 = squares.sample();
+let portal_y1 = squares.sample();
+let portal_y2 = squares.sample();
 
 // let point = document.getElementById("point");
 // let gameover_sound = document.getElementById("gameover");
@@ -52,34 +64,60 @@ let o_y;
 let random_x;
 let random_y;
 
-// drawApple();
+drawApple();
 
 let obstacle_array = [1, 1, 1, 2, 2, 3];
 
 
 function drawApple(player) {
-  if (mode == "rainbow" || mode == "speed") {
-    a_x = squares.sample();
-    a_y = squares.sample();
+  if (score > 10){
+    console.log("drawing apple");
+    apple_mode = apple_mode_array.sample();
+    console.log(apple_mode);
+  } else {
+    apple_mode = "normal";
+  }
+  if (apple_mode == "portal") {
+    console.log("portal");
+    portal_x1 = squares.sample();
+    portal_y1 = squares.sample();
+    portal_x2 = squares.sample();
+    portal_y2 = squares.sample();
     context.beginPath();
-    context.rect(a_x, a_y, p_size, p_size);
-    context.fillStyle = "#ff0000";
+    context.rect(portal_x1, portal_y1, p_size, p_size);
+    context.fillStyle = "#FFA500";
+    context.closePath();
+    context.fill();
+
+    context.beginPath();
+    context.rect(portal_x2, portal_y2, p_size, p_size);
+    context.fillStyle = "#ADD8E6";
     context.closePath();
     context.fill();
   } else {
-    mode = mode_array.sample();
-    startTimer();
-    a_x = squares.sample();
-    a_y = squares.sample();
-    context.beginPath();
-    context.rect(a_x, a_y, p_size, p_size);
-    context.fillStyle = "#ff0000";
-    context.closePath();
-    context.fill();
-  }
+    if (mode == "rainbow" || mode == "speed") {
+      a_x = squares.sample();
+      a_y = squares.sample();
+      context.beginPath();
+      context.rect(a_x, a_y, p_size, p_size);
+      context.fillStyle = "#ff0000";
+      context.closePath();
+      context.fill();
+    } else {
+      mode = mode_array.sample();
+      startTimer();
+      a_x = squares.sample();
+      a_y = squares.sample();
+      context.beginPath();
+      context.rect(a_x, a_y, p_size, p_size);
+      context.fillStyle = "#ff0000";
+      context.closePath();
+      context.fill();
+    }
 
-  if (player == true) {
-    drawPlayer();
+    // if (player == true) {
+    //   drawPlayer();
+    // }
   }
 }
 drawPlayerStart();
@@ -241,13 +279,42 @@ function timer() {
 
   context.clearRect(0, 0, p_size * g_size, p_size * g_size);
   // drawApple
-  context.beginPath();
-  context.rect(a_x, a_y, p_size, p_size);
-  context.fillStyle = "#ffaaaa";
-  context.closePath();
-  context.fill();
+  if (apple_mode == "portal") {
+    context.beginPath();
+    context.rect(portal_x1, portal_y1, p_size, p_size);
+    context.fillStyle = "#FFA500";
+    context.closePath();
+    context.fill();
+
+    context.beginPath();
+    context.rect(portal_x2, portal_y2, p_size, p_size);
+    context.fillStyle = "#ADD8E6";
+    context.closePath();
+    context.fill();
+  } else {
+    context.beginPath();
+    context.rect(a_x, a_y, p_size, p_size);
+    context.fillStyle = "#ff0000";
+    context.closePath();
+    context.fill();
+  }
   // drawPlayer
-  if (p_x == a_x && p_y == a_y) {
+  if (apple_mode === "portal") {
+    if (p_x === portal_x1 && p_y === portal_y1) {
+      // Entered Portal 1
+      console.log("Entered portal 1");
+      p_x = portal_x2; // Teleport to Portal 2
+      p_y = portal_y2;
+      console.log("Teleported to portal 2: p_x =", p_x, ", p_y =", p_y);
+    } else if (p_x === portal_x2 && p_y === portal_y2) {
+      console.log("Entered portal 2");
+      p_x = portal_x1; // Teleport to Portal 1
+      p_y = portal_y1;
+      console.log("Teleported to portal 1: p_x =", p_x, ", p_y =", p_y);
+    }
+
+  }
+  if (p_x == a_x && p_y == a_y || (p_x === portal_x2 && p_y === portal_y2) || (p_x === portal_x1 && p_y === portal_y1)) {
     score++;
     // console.log("previous score: " + previousScore + " current sore: " + score);
     if (score == previousScore + 1 || score == previousScore + 2) {
@@ -286,13 +353,8 @@ function timer() {
         gameover();
       }
     }
-    if (
-      p_x_pos[p_x_pos.length - 2 - i] == a_x &&
-      p_y_pos[p_y_pos.length - 2 - i] == a_y
-    ) {
-      // console.log("inside you!");
-      drawApple();
-    }
+    // apple collision
+    
 
     context.beginPath();
     context.rect(
@@ -352,13 +414,13 @@ function gameover(cheater) {
 
   } else {
     let username = "DIP";
-    
+
     // gameover_sound.play();
     if (document.getElementById("name").value == "DIP") {
-      do {
-        username = prompt("please fill out your 3 letter Username");
-      } while (username == null || username == "" || username.length != 3);
-    
+      // do {
+      //   username = prompt("please fill out your 3 letter Username");
+      // } while (username == null || username == "" || username.length != 3);
+
     }
     username = username.toUpperCase();
     context.fillStyle = "red";
