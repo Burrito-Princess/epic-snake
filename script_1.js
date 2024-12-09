@@ -56,23 +56,6 @@ let random_y;
 
 let obstacle_array = [1, 1, 1, 2, 2, 3];
 
-// shuffleObstacle();
-
-// function shuffleObstacle() {
-//   random_x = obstacle_array.sample();
-//   random_y = obstacle_array.sample();
-//   o_x = squares.sample();
-//   o_y = squares.sample();
-//   return;
-// }
-
-// function drawObstacle() {
-//   context.beginPath();
-//   context.rect(o_x, o_y, p_size * random_x, p_size * random_y);
-//   context.fillStyle = "#0000ff";
-//   context.closePath();
-//   context.fill();
-// }
 
 function drawApple(player) {
   if (mode == "rainbow" || mode == "speed") {
@@ -208,8 +191,8 @@ startTimer();
 timer();
 // mode = "speed";
 function startTimer() {
-  clearInterval(interval); // Clear any existing interval
-  interval = setInterval(timer, (mode === "speed") ? 80 : 100); // Set new interval
+  clearInterval(interval);
+  interval = setInterval(timer, (mode === "speed") ? 80 : 100);
   return;
 }
 
@@ -340,10 +323,6 @@ function timer() {
     context.fill();
   }
 }
-
-// setTimeout(function () {
-//   tableCreate();
-// }, tik/4);
 
 const setHighscore = async (name, score) => {
   return await fetch("php-database/set_highscore.php", {
