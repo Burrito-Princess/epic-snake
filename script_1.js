@@ -30,7 +30,6 @@ let apple_mode_array = [
   "normal",
   "normal",
   "normal",
-  "normal",
 ]
 
 let ex_p = [];
@@ -83,6 +82,8 @@ function drawApple(player) {
     portal_y1 = squares.sample();
     portal_x2 = squares.sample();
     portal_y2 = squares.sample();
+    a_x = -50;
+
     context.beginPath();
     context.rect(portal_x1, portal_y1, p_size, p_size);
     context.fillStyle = "#FFA500";
@@ -108,6 +109,8 @@ function drawApple(player) {
       startTimer();
       a_x = squares.sample();
       a_y = squares.sample();
+      portal_x1 = -50;
+      portal_x2 = -50;
       context.beginPath();
       context.rect(a_x, a_y, p_size, p_size);
       context.fillStyle = "#ff0000";
@@ -115,9 +118,9 @@ function drawApple(player) {
       context.fill();
     }
 
-    // if (player == true) {
-    //   drawPlayer();
-    // }
+    if (player == true) {
+      drawPlayer();
+    }
   }
 }
 drawPlayerStart();
