@@ -125,7 +125,6 @@ function drawApple(player) {
         drawApple()
       }
     }
-
     if (player == true) {
       drawPlayer();
     }
@@ -428,9 +427,9 @@ function gameover(cheater) {
 
     // gameover_sound.play();
     if (document.getElementById("name").value == "DIP") {
-      // do {
-      //   username = prompt("please fill out your 3 letter Username");
-      // } while (username == null || username == "" || username.length != 3);
+      do {
+        username = prompt("please fill out your 3 letter Username");
+      } while (username == null || username == "" || username.length != 3);
 
     }
     username = username.toUpperCase();
