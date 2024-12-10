@@ -69,15 +69,15 @@ let obstacle_array = [1, 1, 1, 2, 2, 3];
 
 
 function drawApple(player) {
-  if (score > 10){
-    console.log("drawing apple");
+  if (score > 10) {
+    // console.log("drawing apple");
     apple_mode = apple_mode_array.sample();
-    console.log(apple_mode);
+    // console.log(apple_mode);
   } else {
     apple_mode = "normal";
   }
   if (apple_mode == "portal") {
-    console.log("portal");
+    // console.log("portal");
     portal_x1 = squares.sample();
     portal_y1 = squares.sample();
     portal_x2 = squares.sample();
@@ -116,6 +116,14 @@ function drawApple(player) {
       context.fillStyle = "#ff0000";
       context.closePath();
       context.fill();
+    }
+    for (let i = 0; i < score; i++) {
+      if ((p_x_pos[p_x_pos.length - 2 - i] == a_x && p_y_pos[p_y_pos.length - 2 - i] == a_y) || 
+      (p_x_pos[p_x_pos.length - 2 - i] == portal_x1 && p_y_pos[p_y_pos.length - 2 - i] == portal_y1) || 
+      (p_x_pos[p_x_pos.length - 2 - i] == portal_x2 && p_y_pos[p_y_pos.length - 2 - i] == portal_y2)) {
+        // console.log("inside you");
+        drawApple()
+      }
     }
 
     if (player == true) {
@@ -305,15 +313,15 @@ function timer() {
   if (apple_mode === "portal") {
     if (p_x === portal_x1 && p_y === portal_y1) {
       // Entered Portal 1
-      console.log("Entered portal 1");
+      // console.log("Entered portal 1");
       p_x = portal_x2; // Teleport to Portal 2
       p_y = portal_y2;
-      console.log("Teleported to portal 2: p_x =", p_x, ", p_y =", p_y);
+      // console.log("Teleported to portal 2: p_x =", p_x, ", p_y =", p_y);
     } else if (p_x === portal_x2 && p_y === portal_y2) {
-      console.log("Entered portal 2");
+      // console.log("Entered portal 2");
       p_x = portal_x1; // Teleport to Portal 1
       p_y = portal_y1;
-      console.log("Teleported to portal 1: p_x =", p_x, ", p_y =", p_y);
+      // console.log("Teleported to portal 1: p_x =", p_x, ", p_y =", p_y);
     }
 
   }
@@ -357,7 +365,7 @@ function timer() {
       }
     }
     // apple collision
-    
+
 
     context.beginPath();
     context.rect(
