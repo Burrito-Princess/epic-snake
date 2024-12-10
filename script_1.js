@@ -117,7 +117,14 @@ function drawApple(player) {
       context.closePath();
       context.fill();
     }
-
+    for (let i = 0; i < score; i++) {
+      if ((p_x_pos[p_x_pos.length - 2 - i] == a_x && p_y_pos[p_y_pos.length - 2 - i] == a_y) || 
+      (p_x_pos[p_x_pos.length - 2 - i] == portal_x1 && p_y_pos[p_y_pos.length - 2 - i] == portal_y1) || 
+      (p_x_pos[p_x_pos.length - 2 - i] == portal_x2 && p_y_pos[p_y_pos.length - 2 - i] == portal_y2)) {
+        // console.log("inside you");
+        drawApple()
+      }
+    }
     if (player == true) {
       drawPlayer();
     }
@@ -420,9 +427,9 @@ function gameover(cheater) {
 
     // gameover_sound.play();
     if (document.getElementById("name").value == "DIP") {
-      // do {
-      //   username = prompt("please fill out your 3 letter Username");
-      // } while (username == null || username == "" || username.length != 3);
+      do {
+        username = prompt("please fill out your 3 letter Username");
+      } while (username == null || username == "" || username.length != 3);
 
     }
     username = username.toUpperCase();
