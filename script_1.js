@@ -26,6 +26,7 @@ let mode_array = [
 
 let apple_mode_array = [
   "portal",
+  "phantom",
   "normal",
   "normal",
   "normal",
@@ -48,6 +49,8 @@ let apple_mode = apple_mode_array.sample();
 
 let p_x_pos = [];
 let p_y_pos = [];
+let phantom_x = [];
+let phantom_y = [];
 let a_x;
 let a_y;
 let p_x;
@@ -76,58 +79,107 @@ function drawApple(player) {
   } else {
     apple_mode = "normal";
   }
-  if (apple_mode == "portal") {
-    // console.log("portal");
-    portal_x1 = squares.sample();
-    portal_y1 = squares.sample();
-    portal_x2 = squares.sample();
-    portal_y2 = squares.sample();
-    a_x = -50;
+  switch (apple_mode) {
+    case "portal":
+      // console.log("portal");
+      portal_x1 = squares.sample();
+      portal_y1 = squares.sample();
+      portal_x2 = squares.sample();
+      portal_y2 = squares.sample();
+      a_x = -50;
 
-    context.beginPath();
-    context.rect(portal_x1, portal_y1, p_size, p_size);
-    context.fillStyle = "#FFA500";
-    context.closePath();
-    context.fill();
-
-    context.beginPath();
-    context.rect(portal_x2, portal_y2, p_size, p_size);
-    context.fillStyle = "#ADD8E6";
-    context.closePath();
-    context.fill();
-  } else {
-    if (mode == "rainbow" || mode == "speed") {
-      a_x = squares.sample();
-      a_y = squares.sample();
       context.beginPath();
-      context.rect(a_x, a_y, p_size, p_size);
-      context.fillStyle = "#ff0000";
+      context.rect(portal_x1, portal_y1, p_size, p_size);
+      context.fillStyle = "#FFA500";
       context.closePath();
       context.fill();
-    } else {
-      mode = mode_array.sample();
-      startTimer();
-      a_x = squares.sample();
-      a_y = squares.sample();
-      portal_x1 = -50;
-      portal_x2 = -50;
+
       context.beginPath();
-      context.rect(a_x, a_y, p_size, p_size);
-      context.fillStyle = "#ff0000";
+      context.rect(portal_x2, portal_y2, p_size, p_size);
+      context.fillStyle = "#ADD8E6";
       context.closePath();
       context.fill();
-    }
-    for (let i = 0; i < score; i++) {
-      if ((p_x_pos[p_x_pos.length - 2 - i] == a_x && p_y_pos[p_y_pos.length - 2 - i] == a_y) || 
-      (p_x_pos[p_x_pos.length - 2 - i] == portal_x1 && p_y_pos[p_y_pos.length - 2 - i] == portal_y1) || 
-      (p_x_pos[p_x_pos.length - 2 - i] == portal_x2 && p_y_pos[p_y_pos.length - 2 - i] == portal_y2)) {
-        // console.log("inside you");
-        drawApple()
+      break;
+    case "normal":
+      if (mode == "rainbow" || mode == "speed") {
+        a_x = squares.sample();
+        a_y = squares.sample();
+        context.beginPath();
+        context.rect(a_x, a_y, p_size, p_size);
+        context.fillStyle = "#ff0000";
+        context.closePath();
+        context.fill();
+      } else {
+        mode = mode_array.sample();
+        startTimer();
+        a_x = squares.sample();
+        a_y = squares.sample();
+        portal_x1 = -50;
+        portal_x2 = -50;
+        context.beginPath();
+        context.rect(a_x, a_y, p_size, p_size);
+        context.fillStyle = "#ff0000";
+        context.closePath();
+        context.fill();
       }
-    }
-    if (player == true) {
-      drawPlayer();
-    }
+      for (let i = 0; i < score; i++) {
+        if ((p_x_pos[p_x_pos.length - 2 - i] == a_x && p_y_pos[p_y_pos.length - 2 - i] == a_y) ||
+          (p_x_pos[p_x_pos.length - 2 - i] == portal_x1 && p_y_pos[p_y_pos.length - 2 - i] == portal_y1) ||
+          (p_x_pos[p_x_pos.length - 2 - i] == portal_x2 && p_y_pos[p_y_pos.length - 2 - i] == portal_y2)) {
+          // console.log("inside you");
+          drawApple()
+        }
+      }
+      if (player == true) {
+        drawPlayer();
+      }
+      break;
+    case "phantom":
+      for (let i = 0; i < 4; i++) {
+        if (mode == "rainbow" || mode == "speed") {
+          phantom_x[i] = squares.sample();
+          phantom_y[i] = squares.sample();
+          context.beginPath();
+          context.rect(phantom_x[i], phantom_y[i], p_size, p_size);
+          context.fillStyle = "#ff0000";
+          context.closePath();
+          context.fill();
+        } else {
+          mode = mode_array.sample();
+          startTimer();
+          phantom_x[i] = squares.sample();
+          phantom_y[i] = squares.sample();
+          portal_x1 = -50;
+          portal_x2 = -50;
+          context.beginPath();
+          context.rect(phantom_x[i], phantom_y[i], p_size, p_size);
+          context.fillStyle = "#ff0000";
+          context.closePath();
+          context.fill();
+        }
+      }
+      if (mode == "rainbow" || mode == "speed") {
+        a_x = squares.sample();
+        a_y = squares.sample();
+        context.beginPath();
+        context.rect(a_x, a_y, p_size, p_size);
+        context.fillStyle = "#ff0000";
+        context.closePath();
+        context.fill();
+      } else {
+        mode = mode_array.sample();
+        startTimer();
+        a_x = squares.sample();
+        a_y = squares.sample();
+        portal_x1 = -50;
+        portal_x2 = -50;
+        context.beginPath();
+        context.rect(a_x, a_y, p_size, p_size);
+        context.fillStyle = "#00ff00";
+        context.closePath();
+        context.fill();
+      }
+      break;
   }
 }
 drawPlayerStart();
@@ -289,24 +341,58 @@ function timer() {
 
   context.clearRect(0, 0, p_size * g_size, p_size * g_size);
   // drawApple
-  if (apple_mode == "portal") {
-    context.beginPath();
-    context.rect(portal_x1, portal_y1, p_size, p_size);
-    context.fillStyle = "#FFA500";
-    context.closePath();
-    context.fill();
+  switch (apple_mode) {
+    case "portal":
+      context.beginPath();
+      context.rect(portal_x1, portal_y1, p_size, p_size);
+      context.fillStyle = "#FFA500";
+      context.closePath();
+      context.fill();
 
-    context.beginPath();
-    context.rect(portal_x2, portal_y2, p_size, p_size);
-    context.fillStyle = "#ADD8E6";
-    context.closePath();
-    context.fill();
-  } else {
-    context.beginPath();
-    context.rect(a_x, a_y, p_size, p_size);
-    context.fillStyle = "#ff0000";
-    context.closePath();
-    context.fill();
+      context.beginPath();
+      context.rect(portal_x2, portal_y2, p_size, p_size);
+      context.fillStyle = "#ADD8E6";
+      context.closePath();
+      context.fill();
+      break;
+    case "normal":
+      context.beginPath();
+      context.rect(a_x, a_y, p_size, p_size);
+      context.fillStyle = "#ff0000";
+      context.closePath();
+      context.fill();
+      break;
+    case "phantom":
+      for (let i = 0; i < 4; i++) {
+        if (mode == "rainbow" || mode == "speed") {
+          context.beginPath();
+          context.rect(phantom_x[i], phantom_y[i], p_size, p_size);
+          context.fillStyle = "#ff0000";
+          context.closePath();
+          context.fill();
+        } else {
+          context.beginPath();
+          context.rect(phantom_x[i], phantom_y[i], p_size, p_size);
+          context.fillStyle = "#ff0000";
+          context.closePath();
+          context.fill();
+        }
+      }
+      if (mode == "rainbow" || mode == "speed") {
+        context.beginPath();
+        context.rect(a_x, a_y, p_size, p_size);
+        context.fillStyle = "#ff0000";
+        context.closePath();
+        context.fill();
+      } else {
+        context.beginPath();
+        context.rect(a_x, a_y, p_size, p_size);
+        context.fillStyle = "#ff0000";
+        context.closePath();
+        context.fill();
+      }
+      break;
+
   }
   // drawPlayer
   if (apple_mode === "portal") {
