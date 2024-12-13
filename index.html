@@ -6,8 +6,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="./assets/style.css">
-  <link rel="stylesheet" href="./src/input.css">
-  <link rel="stylesheet" href="./src/output.css">
+  <!-- <link rel="stylesheet" href="./src/input.css"> -->
+  <!-- <link rel="stylesheet" href="./src/output.css"> -->
   <title>Snake - dev-ross.com</title>
   <audio id="point">
     <source src="/snake/assets/sounds/score+.mp3" type="audio/mp3">
@@ -17,22 +17,38 @@
   </audio>
 </head>
 
-<body class="flex flex-row justify-center">
-  <canvas class="hidden lg:inline"id="canvas" width="700px" height="700px"></canvas>
+<body class="flex flex-row justify-center" id="body">
+  <div>
+  <canvas class="hidden lg:inline" id="canvas" width="700px" height="700px"></canvas>
+  <canvas id="input_canvas"width="700px" height="700px"></canvas>
   <div class="hidden lg:inline " id="white-space"></div>
+</div>
+<div>
+  
   <div class="flex flex-col lg:flex-row">
     <div id="vertical-center">
       <a href="./../../index.php" class="underline text-2xl">Home</a><br>
+      <button onclick="hide_input()">Show Touch Controls</button>
     <div class="hidden lg:inline">User:<br> <input placeholder="dip" id="name" value="DIP" maxlength="3"></input></div>
     <div id="score">Score: 0</div>
     <!-- <div id="dirc">Direction: up</div> -->
     <div id="leader-board"></div>
-    
   </div>
-  <p class="inline lg:hidden">To play snake,<br> access on desktop</p>
+  </div>
 </div>
 
 </body>
 <script src="script_1.js"></script>
+<script>
+  function hide_input(){
+    console.log("logged");
+    if (document.getElementById("input_canvas").style.display == "none"){
+      document.getElementById("input_canvas").style.display = "block";
+      // document.getElementById("body").style.flexDirection = "row";
+    } else {
+      document.getElementById("input_canvas").style.display = "none";
+    }
+  }
+</script>
 
 </html>

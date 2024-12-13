@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Triangle Click Detection</title>
+</head>
+<body>
+    <canvas id="canvas" width="400" height="400"></canvas>
+</body>
+<script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+
+    const triangles = [
+        {
+            id: 1,
+            color: 'rgb(255,0,0)', // Top triangle
+            points: [
+                { x: canvas.width / 2, y: canvas.height / 2 }, // Tip at the center
+                { x: 0, y: 0 }, // Top-left
+                { x: canvas.width, y: 0 } // Top-right
+            ]
+        },
+        {
+            id: 2,
+            color: 'rgb(0,255,0)', // Right triangle
+            points: [
+                { x: canvas.width / 2, y: canvas.height / 2 }, // Tip at the center
+                { x: canvas.width, y: 0 }, // Top-right
+                { x: canvas.width, y: canvas.height } // Bottom-right
+            ]
+        },
+        {
+            id: 3,
+            color: 'rgb(0,0,255)', // Bottom triangle
+            points: [
+                { x: canvas.width / 2, y: canvas.height / 2 }, // Tip at the center
+                { x: canvas.width, y: canvas.height }, // Bottom-right
+                { x: 0, y: canvas.height } // Bottom-left
+            ]
+        },
+        {
+            id: 4,
+            color: 'rgb(0,255,255)', // Left triangle
+            points: [
+                { x: canvas.width / 2, y: canvas.height / 2 }, // Tip at the center
+                { x: 0, y: canvas.height }, // Bottom-left
+                { x: 0, y: 0 } // Top-left
+            ]
+        }
+    ];
+
+    // Function to draw a triangle
+    function drawTriangle(points, color) {
+        ctx.beginPath();
+        ctx.moveTo(points[0].x, points[0].y); // Start at the first point
+        points.forEach(point => ctx.lineTo(point.x, point.y)); // Draw lines to other points
+        ctx.closePath(); // Close the path
+        ctx.fillStyle = color;
+        ctx.fill(); // Fill the triangle
+    }
+
+    // Function to check if a point is inside a triangle
+    function isPointInTriangle(point, triangle) {
+        const [A, B, C] = triangle;
+
+        // Calculate the area of a triangle given 3 points
+        function area(P1, P2, P3) {
+            return Math.abs((P1.x * (P2.y - P3.y) + P2.x * (P3.y - P1.y) + P3.x * (P1.y - P2.y)) / 2);
+        }
+
+        // Calculate the total area of the triangle
+        const triangleArea = area(A, B, C);
+
+        // Calculate the sum of the areas of the three triangles formed with the point
+        const area1 = area(point, B, C);
+        const area2 = area(A, point, C);
+        const area3 = area(A, B, point);
+
+        // If the sum of the sub-areas equals the total area, the point is inside
+        return Math.abs(triangleArea - (area1 + area2 + area3)) < 0.01;
+    }
+
+    // Draw all triangles
+    triangles.forEach(triangle => {
+        drawTriangle(triangle.points, triangle.color);
+    });
+
+    // Add event listener for click detection
+    canvas.addEventListener('click', (e) => {
+        // Get mouse position relative to the canvas
+        const rect = canvas.getBoundingClientRect();
+        const pos = {
+            x: e.clientX - rect.left,
+            y: e.clientY - rect.top
+        };
+
+        // Check if the mouse click is inside any triangle
+        triangles.forEach(triangle => {
+            if (isPointInTriangle(pos, triangle.points)) {
+                alert('Clicked on triangle with ID: ' + triangle.id);
+            }
+        });
+    });
+</script>
+</html>

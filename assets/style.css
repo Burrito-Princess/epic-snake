@@ -10,10 +10,13 @@ body{
     font-family: pixel;
     background-color: black;
     color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
   }
 
 canvas{
-    border: 10px solid pink;
+    border: 10px solid red;
 }
 
 body{
@@ -38,3 +41,28 @@ body{
 #name{
     color: red;
 }
+
+canvas{
+    width: 700px;
+    height: 700px;
+}
+
+#input_canvas{
+    display: none;
+}
+
+@media only screen and (max-width: 750px) {
+    canvas{
+        width: 80vw;
+        height: auto;
+    }
+    #input_canvas{
+        display: block;
+    }
+  }
+
+  @media only screen and (max-width: 900px) {
+    body{
+        flex-direction: column;
+    }
+  }
