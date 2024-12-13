@@ -27,8 +27,8 @@ let mode_array = [
 let apple_mode_array = [
   "portal",
   "phantom",
-  "normal",
-  "normal",
+  "phantom",
+  "phantom",
   "normal",
   "normal",
 ]
@@ -122,14 +122,6 @@ function drawApple(player) {
         context.closePath();
         context.fill();
       }
-      for (let i = 0; i < score; i++) {
-        if ((p_x_pos[p_x_pos.length - 2 - i] == a_x && p_y_pos[p_y_pos.length - 2 - i] == a_y) ||
-          (p_x_pos[p_x_pos.length - 2 - i] == portal_x1 && p_y_pos[p_y_pos.length - 2 - i] == portal_y1) ||
-          (p_x_pos[p_x_pos.length - 2 - i] == portal_x2 && p_y_pos[p_y_pos.length - 2 - i] == portal_y2)) {
-          // console.log("inside you");
-          drawApple()
-        }
-      }
       if (player == true) {
         drawPlayer();
       }
@@ -180,6 +172,14 @@ function drawApple(player) {
         context.fill();
       }
       break;
+  }
+  for (let i = 0; i < score; i++) {
+    if ((p_x_pos[p_x_pos.length - 2 - i] == a_x && p_y_pos[p_y_pos.length - 2 - i] == a_y) ||
+      (p_x_pos[p_x_pos.length - 2 - i] == portal_x1 && p_y_pos[p_y_pos.length - 2 - i] == portal_y1) ||
+      (p_x_pos[p_x_pos.length - 2 - i] == portal_x2 && p_y_pos[p_y_pos.length - 2 - i] == portal_y2)) {
+      // console.log("inside you");
+      drawApple()
+    }
   }
 }
 drawPlayerStart();
@@ -412,7 +412,7 @@ function timer() {
   }
   if (p_x == a_x && p_y == a_y || (p_x === portal_x2 && p_y === portal_y2) || (p_x === portal_x1 && p_y === portal_y1)) {
     score++;
-    // console.log("previous score: " + previousScore + " current sore: " + score);
+    console.log("previous score: " + previousScore + " current sore: " + score);
     if (score == previousScore + 1 || score == previousScore + 2) {
       previousScore = score;
     } else {
