@@ -10,6 +10,7 @@ if (!empty($decoded['name']) && !empty($decoded['score'])) {
 
     $name = $decoded['name'];
     $score = $decoded['score'];
+    $edition = $decoded['edition'];
 
     try {
         $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
@@ -24,7 +25,7 @@ if (!empty($decoded['name']) && !empty($decoded['score'])) {
 
         $id = $stmt->fetch(PDO::FETCH_ASSOC)['id'];
 
-        $stmt = $conn->prepare("INSERT INTO scores (`player_id`, `score`) VALUES ('" . $id . "', '" . $score . "')");
+        $stmt = $conn->prepare("INSERT INTO scores (`player_id`, `score`, `edition`) VALUES ('" . $id . "', '" . $score . "', '" . $edition . "')");
         $stmt->execute();
 
         include "./player_highscore.php";

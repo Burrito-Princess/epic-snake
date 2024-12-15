@@ -228,6 +228,7 @@ function drawApple(player) {
 drawPlayerStart();
 
 function drawPlayerStart() {
+  
   p_x = squares.sample();
   p_y = squares.sample();
   drawPlayer();
@@ -624,7 +625,7 @@ function timer() {
   }
 }
 
-const setHighscore = async (name, score) => {
+const setHighscore = async (name, score, edition) => {
   return await fetch("php-database/set_highscore.php", {
     method: "POST",
     mode: "same-origin",
@@ -633,7 +634,7 @@ const setHighscore = async (name, score) => {
       Accept: "application/json, text/plain, */*",
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ name, score }),
+    body: JSON.stringify({ name, score , edition}),
   })
     .then((response) => response.json())
     .then((data) => {
@@ -664,7 +665,8 @@ function gameover(cheater) {
     username = username.toUpperCase();
     context.fillStyle = "red";
     context.fillRect(0, 0, 500, 500);
-    setHighscore(username, score);
+    let edition = "normal";
+    setHighscore(username, score, edition);
     document.getElementById("score").innerHTML = "Score: " + score;
 
     tableCreate();
