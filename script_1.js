@@ -30,8 +30,8 @@ let mode_array = [
 let apple_mode_array = [
   "portal",
   "phantom",
-  "phantom",
-  "phantom",
+  "normal",
+  "normal",
   "normal",
   "normal",
 ]
@@ -432,7 +432,7 @@ timer();
 // mode = "speed";
 function startTimer() {
   clearInterval(interval);
-  interval = setInterval(timer, (mode === "speed") ? 80 : 100);
+  interval = setInterval(timer, (mode === "speed") ? 75 : 100);
   return;
 }
 
