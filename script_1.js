@@ -2,11 +2,13 @@ let canvas = document.querySelector("canvas");
 let context = canvas.getContext("2d");
 
 let input_canvas = document.getElementById("input_canvas");
-const ctx = input_canvas.getContext('2d');
+const ctx = input_canvas.getContext("2d");
 
 Array.prototype.sample = function () {
   return this[Math.floor(Math.random() * this.length)];
 };
+
+// array variables
 
 let squares = [
   25, 50, 75, 100, 125, 150, 175, 200, 225, 250, 275, 300, 325, 350, 375, 400,
@@ -34,49 +36,49 @@ let apple_mode_array = [
   "normal",
   "normal",
   "normal",
-]
+];
 
 const triangles = [
   {
     id: "up",
-    color: 'rgba(0,0,0,0.3)', // Top triangle
+    color: "rgba(0,0,0,0.3)", // Top triangle
     points: [
       { x: input_canvas.width / 2, y: input_canvas.height / 2 }, // Tip at the center
       { x: 0, y: 0 }, // Top-left
-      { x: input_canvas.width, y: 0 } // Top-right
-    ]
+      { x: input_canvas.width, y: 0 }, // Top-right
+    ],
   },
   {
     id: "right",
-    color: 'rgba(255,255,255,0.3)', // Right triangle
+    color: "rgba(255,255,255,0.3)", // Right triangle
     points: [
       { x: input_canvas.width / 2, y: input_canvas.height / 2 }, // Tip at the center
       { x: input_canvas.width, y: 0 }, // Top-right
-      { x: input_canvas.width, y: input_canvas.height } // Bottom-right
-    ]
+      { x: input_canvas.width, y: input_canvas.height }, // Bottom-right
+    ],
   },
   {
     id: "down",
-    color: 'rgba(0,0,0,0.3)', // Bottom triangle
+    color: "rgba(0,0,0,0.3)", // Bottom triangle
     points: [
       { x: input_canvas.width / 2, y: input_canvas.height / 2 }, // Tip at the center
       { x: input_canvas.width, y: input_canvas.height }, // Bottom-right
-      { x: 0, y: input_canvas.height } // Bottom-left
-    ]
+      { x: 0, y: input_canvas.height }, // Bottom-left
+    ],
   },
   {
     id: "left",
-    color: 'rgba(255,255,255,0.3)', // Left triangle
+    color: "rgba(255,255,255,0.3)", // Left triangle
     points: [
       { x: input_canvas.width / 2, y: input_canvas.height / 2 }, // Tip at the center
       { x: 0, y: input_canvas.height }, // Bottom-left
-      { x: 0, y: 0 } // Top-left
-    ]
-  }
+      { x: 0, y: 0 }, // Top-left
+    ],
+  },
 ];
 
+// standard variables
 let ex_p = [];
-
 let direc = "up";
 let loopcount = 0;
 let score = 2;
@@ -88,6 +90,9 @@ let mode = "normal";
 let clicked = false;
 let interval;
 let apple_mode = apple_mode_array.sample();
+let edition = "key";
+
+// positional variables
 
 let p_x_pos = [];
 let p_y_pos = [];
@@ -108,11 +113,9 @@ let portal_y2 = squares.sample();
 let random_x;
 let random_y;
 
-
 drawApple();
 
 let obstacle_array = [1, 1, 1, 2, 2, 3];
-
 
 function drawApple(player) {
   if (score > 10) {
@@ -217,18 +220,22 @@ function drawApple(player) {
       break;
   }
   for (let i = 0; i < score; i++) {
-    if ((p_x_pos[p_x_pos.length - 2 - i] == a_x && p_y_pos[p_y_pos.length - 2 - i] == a_y) ||
-      (p_x_pos[p_x_pos.length - 2 - i] == portal_x1 && p_y_pos[p_y_pos.length - 2 - i] == portal_y1) ||
-      (p_x_pos[p_x_pos.length - 2 - i] == portal_x2 && p_y_pos[p_y_pos.length - 2 - i] == portal_y2)) {
+    if (
+      (p_x_pos[p_x_pos.length - 2 - i] == a_x &&
+        p_y_pos[p_y_pos.length - 2 - i] == a_y) ||
+      (p_x_pos[p_x_pos.length - 2 - i] == portal_x1 &&
+        p_y_pos[p_y_pos.length - 2 - i] == portal_y1) ||
+      (p_x_pos[p_x_pos.length - 2 - i] == portal_x2 &&
+        p_y_pos[p_y_pos.length - 2 - i] == portal_y2)
+    ) {
       // console.log("inside you");
-      drawApple()
+      drawApple();
     }
   }
 }
 drawPlayerStart();
 
 function drawPlayerStart() {
-  
   p_x = squares.sample();
   p_y = squares.sample();
   drawPlayer();
@@ -256,12 +263,11 @@ function reDrawPlayer() {
 
 /////////////// touch input ///////////////
 
-
 // Function to draw a triangle
 function drawTriangle(points, color) {
   ctx.beginPath();
   context.moveTo(points[0].x, points[0].y); // Start at the first point
-  points.forEach(point => ctx.lineTo(point.x, point.y)); // Draw lines to other points
+  points.forEach((point) => ctx.lineTo(point.x, point.y)); // Draw lines to other points
   ctx.closePath(); // Close the path
   ctx.fillStyle = color;
   ctx.fill(); // Fill the triangle
@@ -273,7 +279,9 @@ function isPointInTriangle(point, triangle) {
 
   // Calculate the area of a triangle given 3 points
   function area(P1, P2, P3) {
-    return Math.abs((P1.x * (P2.y - P3.y) + P2.x * (P3.y - P1.y) + P3.x * (P1.y - P2.y)) / 2);
+    return Math.abs(
+      (P1.x * (P2.y - P3.y) + P2.x * (P3.y - P1.y) + P3.x * (P1.y - P2.y)) / 2
+    );
   }
 
   // Calculate the total area of the triangle
@@ -289,12 +297,12 @@ function isPointInTriangle(point, triangle) {
 }
 
 // Draw all triangles
-triangles.forEach(triangle => {
+triangles.forEach((triangle) => {
   drawTriangle(triangle.points, triangle.color);
 });
 
 // Add event listener for click detection
-input_canvas.addEventListener('click', (e) => {
+input_canvas.addEventListener("click", (e) => {
   // Get the canvas bounding box and scaling factors
   const rect = input_canvas.getBoundingClientRect();
   const scaleX = input_canvas.width / rect.width; // Horizontal scaling factor
@@ -303,11 +311,11 @@ input_canvas.addEventListener('click', (e) => {
   // Adjust mouse position for scaling
   const pos = {
     x: (e.clientX - rect.left) * scaleX,
-    y: (e.clientY - rect.top) * scaleY
+    y: (e.clientY - rect.top) * scaleY,
   };
 
   // Check if the mouse click is inside any triangle
-  triangles.forEach(triangle => {
+  triangles.forEach((triangle) => {
     if (isPointInTriangle(pos, triangle.points)) {
       switch (triangle.id) {
         case "up":
@@ -347,39 +355,38 @@ input_canvas.addEventListener('click', (e) => {
   });
 });
 
-
-
-
 /////////////// keyboard input //////////////
 document.addEventListener("keydown", function (event) {
-  if (clicked == false) {
-    clicked = true;
-    if (event.keyCode == 37 || event.keyCode == 74) {
-      if (direc != "right") {
-        direc = "left";
-        if (p_x < 0) {
-          p_x = g_size * p_size - p_size;
+  if (edition == "key") {
+    if (clicked == false) {
+      clicked = true;
+      if (event.keyCode == 37 || event.keyCode == 74) {
+        if (direc != "right") {
+          direc = "left";
+          if (p_x < 0) {
+            p_x = g_size * p_size - p_size;
+          }
         }
-      }
-    } else if (event.keyCode == 38 || event.keyCode == 73) {
-      if (direc != "down") {
-        direc = "up";
-        if (p_y < 0) {
-          p_y = g_size * p_size - p_size;
+      } else if (event.keyCode == 38 || event.keyCode == 73) {
+        if (direc != "down") {
+          direc = "up";
+          if (p_y < 0) {
+            p_y = g_size * p_size - p_size;
+          }
         }
-      }
-    } else if (event.keyCode == 39 || event.keyCode == 76) {
-      if (direc != "left") {
-        direc = "right";
-        if (p_x > g_size * p_size - p_size) {
-          p_x = 0;
+      } else if (event.keyCode == 39 || event.keyCode == 76) {
+        if (direc != "left") {
+          direc = "right";
+          if (p_x > g_size * p_size - p_size) {
+            p_x = 0;
+          }
         }
-      }
-    } else if (event.keyCode == 40 || event.keyCode == 75) {
-      if (direc != "up") {
-        direc = "down";
-        if (p_y > g_size * p_size - p_size) {
-          p_y = 0;
+      } else if (event.keyCode == 40 || event.keyCode == 75) {
+        if (direc != "up") {
+          direc = "down";
+          if (p_y > g_size * p_size - p_size) {
+            p_y = 0;
+          }
         }
       }
     }
@@ -432,7 +439,7 @@ timer();
 // mode = "speed";
 function startTimer() {
   clearInterval(interval);
-  interval = setInterval(timer, (mode === "speed") ? 75 : 100);
+  interval = setInterval(timer, mode === "speed" ? 75 : 100);
   return;
 }
 
@@ -531,12 +538,11 @@ function timer() {
         context.fill();
       }
       break;
-
   }
-  triangles.forEach(triangle => {
+  triangles.forEach((triangle) => {
     drawTriangle(triangle.points, triangle.color);
   });
-  
+
   // drawPlayer
   if (apple_mode === "portal") {
     if (p_x === portal_x1 && p_y === portal_y1) {
@@ -551,9 +557,12 @@ function timer() {
       p_y = portal_y1;
       // console.log("Teleported to portal 1: p_x =", p_x, ", p_y =", p_y);
     }
-
   }
-  if (p_x == a_x && p_y == a_y || (p_x === portal_x2 && p_y === portal_y2) || (p_x === portal_x1 && p_y === portal_y1)) {
+  if (
+    (p_x == a_x && p_y == a_y) ||
+    (p_x === portal_x2 && p_y === portal_y2) ||
+    (p_x === portal_x1 && p_y === portal_y1)
+  ) {
     score++;
     // console.log("previous score: " + previousScore + " current sore: " + score);
     if (score == previousScore + 1 || score == previousScore + 2) {
@@ -594,7 +603,6 @@ function timer() {
     }
     // apple collision
 
-
     context.beginPath();
     context.rect(
       p_x_pos[p_x_pos.length - 1 - i],
@@ -634,7 +642,7 @@ const setHighscore = async (name, score, edition) => {
       Accept: "application/json, text/plain, */*",
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ name, score , edition}),
+    body: JSON.stringify({ name, score, edition }),
   })
     .then((response) => response.json())
     .then((data) => {
@@ -644,14 +652,17 @@ const setHighscore = async (name, score, edition) => {
 
 function gameover(cheater) {
   mode = "normal";
-  if (score == previousScore || score == previousScore + 1 || score == previousScore + 2) {
+  if (
+    score == previousScore ||
+    score == previousScore + 1 ||
+    score == previousScore + 2
+  ) {
   } else {
     cheater = true;
   }
   if (cheater) {
     alert("You cheated, please dont anymore <3");
     window.location.href = "https://en.wikipedia.org/wiki/Moral";
-
   } else {
     let username = "DIP";
 
@@ -660,12 +671,10 @@ function gameover(cheater) {
       do {
         username = prompt("please fill out your 3 letter Username");
       } while (username == null || username == "" || username.length != 3);
-
     }
     username = username.toUpperCase();
     context.fillStyle = "red";
     context.fillRect(0, 0, 500, 500);
-    let edition = "normal";
     setHighscore(username, score, edition);
     document.getElementById("score").innerHTML = "Score: " + score;
 
@@ -702,4 +711,18 @@ function tableCreate() {
   }
   document.getElementById("leader-board").appendChild(tbl);
   done = true;
+}
+
+function hide_input() {
+  console.log("logged");
+  if (document.getElementById("input_canvas").style.display != "block") {
+    document.getElementById("input_canvas").style.display = "block";
+    // document.getElementById("body").style.flexDirection = "row";
+    edition = "touch";
+    gameover();
+  } else {
+    document.getElementById("input_canvas").style.display = "none";
+    edition = "key";
+    gameover();
+  }
 }
