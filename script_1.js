@@ -355,6 +355,7 @@ input_canvas.addEventListener("click", (e) => {
 
 /////////////// keyboard input //////////////
 document.addEventListener("keydown", function (event) {
+  console.log(edition);
   if (edition == "key") {
     if (clicked == false) {
       clicked = true;
@@ -716,11 +717,11 @@ function hide_input() {
   if (document.getElementById("input_canvas").style.display != "block") {
     document.getElementById("input_canvas").style.display = "block";
     // document.getElementById("body").style.flexDirection = "row";
-    edition = "key";
+    edition = "touch";
     gameover();
   } else {
     document.getElementById("input_canvas").style.display = "none";
-    edition = "touch";
+    edition = "key";
     gameover();
   }
 }
