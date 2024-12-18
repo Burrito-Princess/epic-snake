@@ -91,6 +91,8 @@ let clicked = false;
 let interval;
 let apple_mode = apple_mode_array.sample();
 let edition = "key";
+// let point = document.getElementById("point");
+// let gameover_sound = document.getElementById("gameover");
 
 // positional variables
 
@@ -106,10 +108,6 @@ let portal_x1 = squares.sample();
 let portal_x2 = squares.sample();
 let portal_y1 = squares.sample();
 let portal_y2 = squares.sample();
-
-// let point = document.getElementById("point");
-// let gameover_sound = document.getElementById("gameover");
-
 let random_x;
 let random_y;
 
@@ -718,11 +716,11 @@ function hide_input() {
   if (document.getElementById("input_canvas").style.display != "block") {
     document.getElementById("input_canvas").style.display = "block";
     // document.getElementById("body").style.flexDirection = "row";
-    edition = "touch";
+    edition = "key";
     gameover();
   } else {
     document.getElementById("input_canvas").style.display = "none";
-    edition = "key";
+    edition = "touch";
     gameover();
   }
 }
