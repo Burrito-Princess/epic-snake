@@ -10,8 +10,16 @@ try {
     $stmt = $conn->prepare("SELECT * FROM personal_high ORDER BY score DESC LIMIT 6");
     $stmt->execute();
 
-    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $results[0] = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    $stmt = $conn->prepare("SELECT * FROM `scores` INNER JOIN players ON scores.player_id = players.id WHERE `edition` = 'key' ORDER BY score DESC LIMIT 6");
+    $stmt->execute();
+    $results[1] = $stmt->fetchAll(PDO::FETCH_ASSOC);
   
+    $stmt = $conn->prepare("SELECT * FROM `scores` INNER JOIN players ON scores.player_id = players.id WHERE `edition` = 'touch' ORDER BY score DESC LIMIT 6");
+    $stmt->execute();
+    $results[2] = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
     echo json_encode($results);
 
     

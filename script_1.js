@@ -90,7 +90,16 @@ let mode = "normal";
 let clicked = false;
 let interval;
 let apple_mode = apple_mode_array.sample();
-let edition = "key";
+let edition;
+
+const displayStyle = window.getComputedStyle(input_canvas).display;
+
+console.log(displayStyle);
+if (displayStyle !== "block") {
+  edition = "key";
+} else {
+  edition = "touch";
+}
 // let point = document.getElementById("point");
 // let gameover_sound = document.getElementById("gameover");
 
@@ -411,7 +420,6 @@ const getHighscores = async () => {
       return data;
     });
 };
-/////////////// Timer ///////////////
 
 let highscores;
 
@@ -436,9 +444,15 @@ let done = false;
 startTimer();
 timer();
 // mode = "speed";
+/////////////// Timer ///////////////
 function startTimer() {
   clearInterval(interval);
-  interval = setInterval(timer, mode === "speed" ? 75 : 100);
+  if (edition == "touch"){
+    interval = setInterval(timer, mode === "speed" ? 110 : 120);
+  } else {
+    interval = setInterval(timer, mode === "speed" ? 75 : 100);
+  }
+  
   return;
 }
 
@@ -684,13 +698,20 @@ function gameover(cheater) {
   }
 }
 
+let boards = [
+  "Overal",
+  "Keys",
+  "touch"
+];
+
 function tableCreate() {
+  for (let c = 0; c < boards.length; c++){
   if (done == true) {
-    document.getElementById("table").remove();
+    document.getElementById("table" + c).remove();
   }
   const body = document.body,
     tbl = document.createElement("table");
-  tbl.id = "table";
+  tbl.id = "table" + c;
   tbl.style.width = "150px";
   tbl.style.border = "1px solid black";
 
@@ -698,17 +719,24 @@ function tableCreate() {
     const tr = tbl.insertRow();
     for (let j = 0; j < 2; j++) {
       const td = tr.insertCell();
+      td.style.width = "50%";
       if (j == 0) {
-        let name = dataArray[i].name;
+        let name = dataArray[c][i].name;
         td.appendChild(document.createTextNode(name));
       } else if (j == 1) {
-        let score = dataArray[i].score;
+        let score = dataArray[c][i].score;
         td.appendChild(document.createTextNode(score));
       }
       td.style.border = "1px solid white";
     }
   }
   document.getElementById("leader-board").appendChild(tbl);
+  let cap = document.createElement("caption");
+  let cap_txt = document.createTextNode(boards[c]);
+  cap.appendChild(cap_txt);
+  let tab = document.getElementById("table" + c)
+    tab.insertBefore(cap, tab.childNodes[0])
+}
   done = true;
 }
 

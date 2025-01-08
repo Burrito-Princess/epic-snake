@@ -33,6 +33,7 @@
     <div id="score">Score: 0</div>
     <!-- <div id="dirc">Direction: up</div> -->
     <div id="leader-board"></div>
+    <div id="leader-board-touch"></div>
   </div>
   </div>
 </div>
