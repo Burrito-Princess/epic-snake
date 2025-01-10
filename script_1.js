@@ -31,12 +31,19 @@ let mode_array = [
 
 let apple_mode_array = [
   "portal",
+  "portal",
   "phantom",
   "normal",
   "normal",
   "normal",
   "normal",
+  "normal",
+  "normal",
+  "normal",
 ];
+//  let cc = [
+  
+//  ]
 
 const triangles = [
   {
@@ -85,7 +92,7 @@ let score = 2;
 let previousScore = 2;
 let p_size = 25;
 let g_size = 28;
-let tik = 100;
+let tik = 10;
 let mode = "normal";
 let clicked = false;
 let interval;
@@ -119,6 +126,18 @@ let portal_y1 = squares.sample();
 let portal_y2 = squares.sample();
 let random_x;
 let random_y;
+
+let url = window.location.href;
+let cc;
+
+if (url.split('?')[1].split('=')[1] === undefined){
+  cc = 100;
+} else {
+  cc = parseInt(url.split('?')[1].split('=')[1]);
+}
+
+console.log(cc);
+
 
 drawApple();
 
@@ -447,11 +466,17 @@ timer();
 /////////////// Timer ///////////////
 function startTimer() {
   clearInterval(interval);
-  if (edition == "touch"){
-    interval = setInterval(timer, mode === "speed" ? 110 : 120);
-  } else {
-    interval = setInterval(timer, mode === "speed" ? 75 : 100);
-  }
+    let inner_mode = mode;
+    if (inner_mode != "speed"){
+      inner_mode = 100;
+    } else {
+      inner_mode = 98;
+    }
+
+
+    interval = setInterval(timer, 100 * (cc/100) * (inner_mode/100));
+    console.log("cc", cc)
+    console.log( 100 * (cc/100) * (inner_mode/100));
   
   return;
 }

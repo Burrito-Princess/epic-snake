@@ -34,6 +34,14 @@
     <!-- <div id="dirc">Direction: up</div> -->
     <div id="leader-board"></div>
     <div id="leader-board-touch"></div>
+    <form action="" method="get">
+      <select name="cc">
+        <option value="120">100 CC</option>
+        <option value="100">150 CC</option>
+        <option value="80">200 CC</option>
+      </select>
+      <input type="submit" value="Submit">
+    </form>
   </div>
   </div>
 </div>
