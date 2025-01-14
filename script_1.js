@@ -101,7 +101,7 @@ let edition;
 
 const displayStyle = window.getComputedStyle(input_canvas).display;
 
-console.log(displayStyle);
+// console.log(displayStyle);
 if (displayStyle !== "block") {
   edition = "key";
 } else {
@@ -130,13 +130,13 @@ let random_y;
 let url = window.location.href;
 let cc;
 
-if (url.split('?')[1].split('=')[1] === undefined){
+if (typeof(url.split('?')[1]) == 'undefined'){
   cc = 100;
 } else {
   cc = parseInt(url.split('?')[1].split('=')[1]);
 }
 
-console.log(cc);
+// console.log(cc);
 
 
 drawApple();
@@ -383,7 +383,7 @@ input_canvas.addEventListener("click", (e) => {
 
 /////////////// keyboard input //////////////
 document.addEventListener("keydown", function (event) {
-  console.log(edition);
+  // console.log(edition);
   if (edition == "key") {
     if (clicked == false) {
       clicked = true;
@@ -475,8 +475,8 @@ function startTimer() {
 
 
     interval = setInterval(timer, 100 * (cc/100) * (inner_mode/100));
-    console.log("cc", cc)
-    console.log( 100 * (cc/100) * (inner_mode/100));
+    // console.log("cc", cc)
+    // console.log( 100 * (cc/100) * (inner_mode/100));
   
   return;
 }
@@ -680,7 +680,7 @@ const setHighscore = async (name, score, edition) => {
       Accept: "application/json, text/plain, */*",
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ name, score, edition }),
+    body: JSON.stringify({ name, score, edition, cc }),
   })
     .then((response) => response.json())
     .then((data) => {
@@ -766,7 +766,7 @@ function tableCreate() {
 }
 
 function hide_input() {
-  console.log("logged");
+  // console.log("logged");
   if (document.getElementById("input_canvas").style.display != "block") {
     document.getElementById("input_canvas").style.display = "block";
     // document.getElementById("body").style.flexDirection = "row";

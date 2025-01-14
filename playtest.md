@@ -7,7 +7,7 @@
 	- Op lower cc’s is hij minder vloeiend, maar dat is verwacht.
     - keys response is niet soepel (delay)
 ## Bestuuring 
-    - 	Geen WASD support, wel arrow IJKL :D
+    - 	Geen WASD support, wel arrow + IJKL :D
 ## belooning
     - Je kunt een highscore krijgen en vechten op de highscore
 	- Meer leaderboard
