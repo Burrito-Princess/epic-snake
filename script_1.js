@@ -182,7 +182,11 @@ function drawApple(player) {
         context.closePath();
         context.fill();
       } else {
+        if (score < 3){
+          mode = "normal";
+        } else {
         mode = mode_array.sample();
+        }
         startTimer();
         a_x = squares.sample();
         a_y = squares.sample();
@@ -209,7 +213,11 @@ function drawApple(player) {
           context.closePath();
           context.fill();
         } else {
+          if (score < 3){
+            mode = "normal";
+          } else {
           mode = mode_array.sample();
+          }
           startTimer();
           phantom_x[i] = squares.sample();
           phantom_y[i] = squares.sample();
@@ -231,7 +239,11 @@ function drawApple(player) {
         context.closePath();
         context.fill();
       } else {
+        if (score < 3){
+          mode = "normal";
+        } else {
         mode = mode_array.sample();
+        }
         startTimer();
         a_x = squares.sample();
         a_y = squares.sample();
@@ -254,8 +266,13 @@ function drawApple(player) {
       (p_x_pos[p_x_pos.length - 2 - i] == portal_x2 &&
         p_y_pos[p_y_pos.length - 2 - i] == portal_y2)
     ) {
-      // console.log("inside you");
       drawApple();
+    }
+    for (let j = 0; j < phantom_x.length; j++){
+      if (p_x_pos[p_x_pos.length - 2 - i == phantom_x[j]] && 
+        p_x_pos[p_y_pos.length - 2 - i == phantom_y[j]]){
+          drawApple();
+        }
     }
   }
 }
