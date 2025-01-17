@@ -6,8 +6,6 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="./assets/style.css">
-  <!-- <link rel="stylesheet" href="./src/input.css"> -->
-  <!-- <link rel="stylesheet" href="./src/output.css"> -->
   <title>Snake - dev-ross.com</title>
   <audio id="point">
     <source src="/snake/assets/sounds/score+.mp3" type="audio/mp3">
@@ -36,9 +34,9 @@
     <div id="leader-board-touch"></div>
     <form action="" method="get">
       <select name="cc">
-        <option value="120">100 CC</option>
+        <option value="80">100 CC</option>
         <option value="100">150 CC</option>
-        <option value="80">200 CC</option>
+        <option value="120">200 CC</option>
       </select>
       <input type="submit" value="Submit">
     </form>

@@ -25,13 +25,18 @@ $stmt->execute();
 for ($i = 0; $i < count($player_highscore); $i++) {
     $keys = array_keys($player_highscore);
     echo $keys[$i] . " " . $player_highscore[$keys[$i]][0]["score"] . "<br>";
-    $player_id = $player_highscore[$keys[$i]][0]["player_id"];
+
+    $entry = $player_highscore[$keys[$i]][0];
+    $player_id = $entry["player_id"];
     $name = $keys[$i];
-    $score = intval($player_highscore[$keys[$i]][0]["score"]);
-    $stmt = $conn->prepare("INSERT INTO `personal_high` (`player_id`, `name`, `score`) VALUES (:player_id ,:name , :score)");
+    $score = intval($entry["score"]);
+    $cc = intval($entry["cc"]);
+
+    $stmt = $conn->prepare("INSERT INTO `personal_high` (`player_id`, `name`, `score`, `cc`) VALUES (:player_id, :name, :score, :cc)");
     $stmt->bindParam(':player_id', $player_id, PDO::PARAM_INT);
     $stmt->bindParam(':name', $name, PDO::PARAM_STR);           
     $stmt->bindParam(':score', $score, PDO::PARAM_INT);
+    $stmt->bindParam(':cc', $cc, PDO::PARAM_INT);
     $stmt->execute();
 }
 echo "<pre>";

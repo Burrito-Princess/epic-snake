@@ -489,9 +489,7 @@ function startTimer() {
     } else {
       inner_mode = 98;
     }
-
-
-    interval = setInterval(timer, 100 * (cc/100) * (inner_mode/100));
+    interval = setInterval(timer, 10000 / (cc) * (inner_mode/100));
     // console.log("cc", cc)
     // console.log( 100 * (cc/100) * (inner_mode/100));
   

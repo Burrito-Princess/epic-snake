@@ -1,0 +1,46 @@
+@font-face {
+    font-family: pixel;
+    src: url(PublicPixel-z84yD.ttf);
+  }
+
+body{
+    font-family: pixel;
+    background-color: purple;
+    color: white;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.leader{
+    background-color: black;
+    margin: 10px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 20%;
+    border-radius: 5px;
+}
+h2{
+   display: flex;
+   justify-content: center;
+}
+
+
+td{
+    border: solid white 0.5px;
+}
+
+@media only screen and (max-width: 1000px) {
+    .leader{
+        width: 40%;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .leader{
+        width: 80%;
+    }
+}
