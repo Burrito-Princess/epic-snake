@@ -26,13 +26,58 @@
 </head>
 
 <body>
+    <a href="./index.php">Back</a>
+    <div class="head-container">
+      <div class="leader power-up">
+        <h2>Power Ups</h2>
+        <table>
+            <tr>
+                <td>Mode</td>
+                <td>Action</td>
+                <td>lenght</td>
+            </tr>
+            <tr>
+                <td>Rainbow</td>
+                <td>2 points per Apple</td>
+                <td>100 tics</td>
+            </tr>
+            <tr>
+                <td>Grey</td>
+                <td>You can't die</td>
+                <td>Until next Apple</td>
+            </tr>
+            <tr>
+                <td>Blue</td>
+                <td>Can't go Trough walls</td>
+                <td>Until next Apple</td>
+            </tr>
+            <tr>
+                <td>Grey + White</td>
+                <td>2% more speed</td>
+                <td>100 tics</td>
+            </tr>
+            <tr>
+                <td>5 Apples</td>
+                <td>1 of 5 apples is real</td>
+                <td>Util next Apple</td>
+            </tr>
+            <tr>
+                <td>Blue - Orange Apple</td>
+                <td>Teleport to the other Apple</td>
+                <td>Until next Apple</td>
+            </tr>
+        </table>
+    </div>  
+    </div>
+    
+    <div class="container"> 
     <?php
     foreach ($boards as $table => $types) {
         foreach ($types as $type) {
-            
+
             echo "<div class='leader'>";
             echo "<h2>" . $type . "</h2>";
-            
+
     ?>
             <table>
                 <tr>
@@ -61,11 +106,12 @@
             </table>
             <br>
     <?php
-    echo "</div>";
+            echo "</div>";
         };
     };
 
     ?>
+    </div>
 </body>
 
 </html>

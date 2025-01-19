@@ -3,15 +3,25 @@
     src: url(PublicPixel-z84yD.ttf);
   }
 
-body{
+*{
+    margin: 0;
+    padding: 0;
     font-family: pixel;
-    background-color: purple;
     color: white;
+}
+
+body{
+    background-color: #842593
+}
+
+.container{
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
     align-items: center;
 }
+
+
 
 .leader{
     background-color: black;
@@ -23,24 +33,48 @@ body{
     width: 20%;
     border-radius: 5px;
 }
+
+.power-up{
+    width: 60%;
+    min-width: 400px;
+}
+
+.head-container{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
 h2{
    display: flex;
    justify-content: center;
 }
 
+table{
+    margin: 10px;
+}
 
 td{
     border: solid white 0.5px;
+    padding: 5px;
 }
 
 @media only screen and (max-width: 1000px) {
     .leader{
         width: 40%;
     }
+    .power-up{
+        font-size: small;
+    }
 }
 
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: 600px) {
     .leader{
         width: 80%;
+    }
+    .power-up{
+        width: 90%;
+        min-width: 0px;
+        font-size: x-small;
     }
 }

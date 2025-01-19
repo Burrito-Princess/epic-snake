@@ -26,17 +26,17 @@
   <div class="flex flex-col lg:flex-row">
     <div id="vertical-center">
       <a href="./../../index.php" class="underline text-2xl">Home</a><br>
+      <a href="./leaderboards.php">Leaderboards</a><br><br>
       <button onclick="hide_input()">Show Touch Controls</button>
     <div class="hidden lg:inline">User:<br> <input placeholder="dip" id="name" value="DIP" maxlength="3"></input></div>
     <div id="score">Score: 0</div>
-    <!-- <div id="dirc">Direction: up</div> -->
     <div id="leader-board"></div>
     <div id="leader-board-touch"></div>
     <form action="" method="get">
       <select name="cc">
-        <option value="80">100 CC</option>
-        <option value="100">150 CC</option>
-        <option value="120">200 CC</option>
+        <option value="80">80 CC</option>
+        <option value="100">100 CC</option>
+        <option value="120">120 CC</option>
       </select>
       <input type="submit" value="Submit">
     </form>
