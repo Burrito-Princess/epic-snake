@@ -21,6 +21,16 @@ body{
     align-items: center;
 }
 
+#cc-form input{
+    color: black;
+    width: 40%;
+    margin: 2.5%;
+}
+
+#cc-form{
+    display: flex;
+    justify-content: center;
+}
 
 
 .leader{

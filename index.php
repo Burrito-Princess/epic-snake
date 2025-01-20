@@ -34,9 +34,9 @@
     <div id="leader-board-touch"></div>
     <form action="" method="get">
       <select name="cc">
-        <option value="80">80 CC</option>
-        <option value="100">100 CC</option>
-        <option value="120">120 CC</option>
+        <option value="80" id="80">80 CC</option>
+        <option value="100" id="100">100 CC</option>
+        <option value="120" id="120">120 CC</option>
       </select>
       <input type="submit" value="Submit">
     </form>

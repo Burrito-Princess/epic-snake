@@ -132,8 +132,19 @@ let cc;
 
 if (typeof(url.split('?')[1]) == 'undefined'){
   cc = 100;
+  document.getElementById("100").selected = true;
 } else {
   cc = parseInt(url.split('?')[1].split('=')[1]);
+  switch(cc){
+    case 80:
+      document.getElementById("80").selected = true;;
+      break;
+    case 100:
+      document.getElementById("100").selected = true;
+      break;
+    case 120:
+      document.getElementById("120").selected = true;
+  }
 }
 
 // console.log(cc);
@@ -686,7 +697,7 @@ function timer() {
   }
 }
 
-const setHighscore = async (name, score, edition) => {
+const setHighscore = async (name, score, edition, cc) => {
   return await fetch("php-database/set_highscore.php", {
     method: "POST",
     mode: "same-origin",
@@ -717,10 +728,10 @@ function gameover(cheater) {
     alert("You cheated, please dont anymore <3");
     window.location.href = "https://en.wikipedia.org/wiki/Moral";
   } else {
-    let username = "DIP";
+    let username = document.getElementById("name").value;
 
     // gameover_sound.play();
-    if (document.getElementById("name").value == "DIP") {
+    if (document.getElementById("name").value == "DIP" || document.getElementById("name").value == "") {
       do {
         username = prompt("please fill out your 3 letter Username");
       } while (username == null || username == "" || username.length != 3);
@@ -728,7 +739,7 @@ function gameover(cheater) {
     username = username.toUpperCase();
     context.fillStyle = "red";
     context.fillRect(0, 0, 500, 500);
-    setHighscore(username, score, edition);
+    setHighscore(username, score, edition, cc);
     document.getElementById("score").innerHTML = "Score: " + score;
 
     tableCreate();

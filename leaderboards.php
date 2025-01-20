@@ -59,7 +59,7 @@
             <tr>
                 <td>5 Apples</td>
                 <td>1 of 5 apples is real</td>
-                <td>Util next Apple</td>
+                <td>Until next Apple</td>
             </tr>
             <tr>
                 <td>Blue - Orange Apple</td>
@@ -109,8 +109,34 @@
             echo "</div>";
         };
     };
-
     ?>
+    <div class="leader">
+        <h2><form method="post" action="" id="cc-form"><input type="text" name="cc" placeholder="cc"><input type="submit" value="submit"></form></h2>
+        <table>
+            <tr>
+                <td>User</td>
+                <td>Score</td>
+                <td>cc</td>
+            </tr>
+            <?php
+                foreach (tables("cc", $_POST["cc"]) as $entry) {
+                ?>
+                    <tr>
+                        <td>
+                            <?= $entry["name"] ?>
+                        </td>
+                        <td>
+                            <?= $entry["score"] ?>
+                        </td>
+                        <td>
+                            <?= $entry["cc"] ?>
+                        </td>
+                    </tr>
+                <?php
+                }
+                ?>
+        </table>
+    </div>  
     </div>
 </body>
 
