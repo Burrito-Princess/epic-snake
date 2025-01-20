@@ -32,10 +32,6 @@ if (!empty($decoded['name']) && !empty($decoded['score'])) {
         $stmt->bindParam(':edition', $edition, PDO::PARAM_STR);
         $stmt->bindParam(':cc', $cc, PDO::PARAM_INT);
         $stmt->execute();
-
-
-        $stmt->execute();
-
         include "./player_highscore.php";
         
     } catch (PDOException $e) {

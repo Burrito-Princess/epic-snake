@@ -32,9 +32,9 @@
         <h2>Power Ups</h2>
         <table>
             <tr>
-                <td>Mode</td>
-                <td>Action</td>
-                <td>lenght</td>
+                <td><h2>Mode</h2></td>
+                <td><h2>Action</h2></td>
+                <td><h2>lenght</h2></td>
             </tr>
             <tr>
                 <td>Rainbow</td>
