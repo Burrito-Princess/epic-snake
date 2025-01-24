@@ -19,9 +19,9 @@ let mode_array = [
   "rainbow",
   "aaaaaa",
   "speed",
-  "normal",
-  "normal",
-  "normal",
+  "blue",
+  "blue",
+  "blue",
   "normal",
   "normal",
   "normal",
@@ -126,6 +126,7 @@ let portal_y1 = squares.sample();
 let portal_y2 = squares.sample();
 let random_x;
 let random_y;
+let death = "normal";
 
 let url = window.location.href;
 let cc;
@@ -152,9 +153,10 @@ if (typeof(url.split('?')[1]) == 'undefined'){
 
 drawApple();
 
-let obstacle_array = [1, 1, 1, 2, 2, 3];
+// let obstacle_array = [1, 1, 1, 2, 2, 3];
 
 function drawApple(player) {
+    death = apple_mode;
   if (score > 10) {
     // console.log("drawing apple");
     apple_mode = apple_mode_array.sample();
@@ -162,6 +164,7 @@ function drawApple(player) {
   } else {
     apple_mode = "normal";
   }
+
   switch (apple_mode) {
     case "portal":
       // console.log("portal");
@@ -524,6 +527,7 @@ function timer() {
     if (p_x < 0 && mode != "blue") {
       p_x = g_size * p_size - p_size;
     } else if (mode == "blue" && p_x < 0) {
+      death = "blue";
       gameover();
     }
   } else if (dirc == "up") {
@@ -531,6 +535,7 @@ function timer() {
     if (p_y < 0 && mode != "blue") {
       p_y = g_size * p_size - p_size;
     } else if (mode == "blue" && p_y < 0) {
+      death = "blue";
       gameover();
     }
   } else if (dirc == "right") {
@@ -538,6 +543,7 @@ function timer() {
     if (p_x > g_size * p_size - p_size && mode != "blue") {
       p_x = 0;
     } else if (mode == "blue" && p_x > g_size * p_size - p_size) {
+      death = "blue";
       gameover();
     }
   } else if (dirc == "down") {
@@ -545,6 +551,7 @@ function timer() {
     if (p_y > g_size * p_size - p_size && mode != "blue") {
       p_y = 0;
     } else if (mode == "blue" && p_y > g_size * p_size - p_size) {
+      death = "blue";
       gameover();
     }
   }
@@ -697,7 +704,7 @@ function timer() {
   }
 }
 
-const setHighscore = async (name, score, edition, cc) => {
+const setHighscore = async (name, score, edition, cc, death) => {
   return await fetch("php-database/set_highscore.php", {
     method: "POST",
     mode: "same-origin",
@@ -706,16 +713,19 @@ const setHighscore = async (name, score, edition, cc) => {
       Accept: "application/json, text/plain, */*",
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ name, score, edition, cc }),
+    body: JSON.stringify({ name, score, edition, cc, death}),
   })
     .then((response) => response.json())
     .then((data) => {
+      console.log(data);
       return data;
+      
     });
 };
 
 function gameover(cheater) {
   mode = "normal";
+  console.log(death);
   if (
     score == previousScore ||
     score == previousScore + 1 ||
@@ -739,7 +749,7 @@ function gameover(cheater) {
     username = username.toUpperCase();
     context.fillStyle = "red";
     context.fillRect(0, 0, 500, 500);
-    setHighscore(username, score, edition, cc);
+    setHighscore(username, score, edition, cc, death);
     document.getElementById("score").innerHTML = "Score: " + score;
 
     tableCreate();
@@ -792,10 +802,8 @@ function tableCreate() {
 }
 
 function hide_input() {
-  // console.log("logged");
   if (document.getElementById("input_canvas").style.display != "block") {
     document.getElementById("input_canvas").style.display = "block";
-    // document.getElementById("body").style.flexDirection = "row";
     edition = "touch";
     gameover();
   } else {

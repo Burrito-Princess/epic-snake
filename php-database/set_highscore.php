@@ -12,6 +12,13 @@ if (!empty($decoded['name']) && !empty($decoded['score'])) {
     $score = $decoded['score'];
     $edition = $decoded['edition'];
     $cc = $decoded['cc'];
+    $death = $decoded['death'];
+
+    // $name = "dip";
+    // $score = 666;
+    // $edition = "test";
+    // $cc = 9999;
+    // $death = "portal";
 
     try {
         $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
@@ -33,6 +40,7 @@ if (!empty($decoded['name']) && !empty($decoded['score'])) {
         $stmt->bindParam(':cc', $cc, PDO::PARAM_INT);
         $stmt->execute();
         include "./player_highscore.php";
+        include "./stats.php";
         
     } catch (PDOException $e) {
         echo json_encode(['error' => 'cannot add to database']);
@@ -41,4 +49,3 @@ if (!empty($decoded['name']) && !empty($decoded['score'])) {
 } else {
     echo json_encode(['error' => 'invalid JSON']);
 }
-?>
