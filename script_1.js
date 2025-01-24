@@ -19,9 +19,9 @@ let mode_array = [
   "rainbow",
   "aaaaaa",
   "speed",
-  "blue",
-  "blue",
-  "blue",
+  "normal",
+  "normal",
+  "normal",
   "normal",
   "normal",
   "normal",
@@ -717,7 +717,7 @@ const setHighscore = async (name, score, edition, cc, death) => {
   })
     .then((response) => response.json())
     .then((data) => {
-      console.log(data);
+      // console.log(data);
       return data;
       
     });
@@ -725,7 +725,7 @@ const setHighscore = async (name, score, edition, cc, death) => {
 
 function gameover(cheater) {
   mode = "normal";
-  console.log(death);
+  // console.log(death);
   if (
     score == previousScore ||
     score == previousScore + 1 ||
